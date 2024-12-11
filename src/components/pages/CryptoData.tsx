@@ -30,7 +30,7 @@ const CryptoData: React.FC = () => {
     const fetchData = async (): Promise<void> => {
         try {
             const response = await axios.get(
-                'https://crypto-multiples-node.vercel.app/'
+                'https://crypto-multiples-node-lr77oq4px-rakesh-patels-projects.vercel.app/api/cryptoData'
             );
             const { data } = response;
             console.log('console_response', data.data.data);
