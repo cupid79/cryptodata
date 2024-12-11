@@ -27,26 +27,15 @@ const CryptoData: React.FC = () => {
     //     return `${percentages.toFixed(2)} %`;
     // };
 
-    const API_URL: string =
-        'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest';
-    const API_KEY = '6c69779d-77bd-4838-92de-6f341c65c13e';
-
-    const symbols: string =
-        'ETH,BNB,AVAX,OP,ARB,MATIC,SUI,SOL,TON,APT,NEAR,ATOM,TRX';
-
     const fetchData = async (): Promise<void> => {
         try {
-            const response = await axios.get(API_URL, {
-                headers: {
-                    'X-CMC_PRO_API_KEY': API_KEY,
-                },
-                params: {
-                    symbol: symbols,
-                    convert: 'USD',
-                },
-            });
+            const response = await axios.get(
+                'https://crypto-multiples-node.vercel.app/'
+            );
+            const { data } = response;
+            console.log('console_response', data.data.data);
 
-            const data: CryptoCoin[] = Object.values(response.data.data).map(
+            const coins: CryptoCoin[] = Object.values(data.data.data).map(
                 (coin: any) => ({
                     id: coin.id,
                     name: coin.name,
@@ -85,7 +74,7 @@ const CryptoData: React.FC = () => {
                 })
             );
 
-            setCryptoData(data);
+            setCryptoData(coins);
             setLoading(false);
         } catch (err: any) {
             setError(err.message || 'Error fetching data');
